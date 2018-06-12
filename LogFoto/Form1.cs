@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FroniusSymo;
+using ProviderMsAccessDB;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +17,21 @@ namespace LogFoto
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string sDirectoryPath = @"D:\Falownik\Inputs\";
+
+
+            using (ProviderMsAccess prov = new ProviderMsAccess(@"C:\Users\Szymon\Documents\baza.accdb"))
+            {
+                FroniusSymoLog log = new FroniusSymoLog();
+
+                var temp = log.GetProduction2(sDirectoryPath);
+
+                prov.InsertProduction2(temp);
+            }            
         }
     }
 }
