@@ -38,7 +38,6 @@ namespace FroniusSymo.SunSpec
 
         public DeviceRecord()
         {
-            modulRecords = new List<ModelRecord>();
         }
     }
 }

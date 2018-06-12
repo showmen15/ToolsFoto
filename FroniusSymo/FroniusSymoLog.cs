@@ -10,6 +10,7 @@ using FroniusSymo.Production2;
 using FroniusSymo.SunSpec;
 using System.IO;
 using Newtonsoft.Json;
+using System.Xml.Serialization;
 
 namespace FroniusSymo
 {
@@ -17,7 +18,6 @@ namespace FroniusSymo
     {
         public FroniusSymoLog()
         {
-
         }
 
         public IEnumerable<SunSpecData> GetSunSpecData(string sDirectoryPath)
@@ -27,10 +27,15 @@ namespace FroniusSymo
 
             foreach (var file in inputs)
             {
-                string input = File.ReadAllText(file);
+                SunSpecData tempSunSpecDate;
 
-                if (!string.IsNullOrWhiteSpace(input))
-                    result.Add(JsonConvert.DeserializeObject<SunSpecData>(input));
+                using (StreamReader rdr = new StreamReader(file, false))
+                {
+                    XmlSerializer serializer = new XmlSerializer(typeof(SunSpecData));
+                    tempSunSpecDate = (SunSpecData)serializer.Deserialize(rdr);
+                }
+
+                result.Add(tempSunSpecDate);
             }
 
             return result;
@@ -39,7 +44,7 @@ namespace FroniusSymo
         public IEnumerable<Production2.Production2> GetProduction2(string sDirectoryPath)
         {
             List<Production2.Production2> result = new List<Production2.Production2>();
-            string[] inputs = Directory.GetFiles(sDirectoryPath,"SunSpec*");
+            string[] inputs = Directory.GetFiles(sDirectoryPath, "SunSpec*");
 
             foreach (var file in inputs)
             {

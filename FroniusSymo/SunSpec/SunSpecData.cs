@@ -57,14 +57,19 @@ namespace FroniusSymo.SunSpec
 
         private string getDescriptionDataPointRecord(string modulRecordsID, string dataPointRecordID)
         {
-            string result = string.Empty;
+            string result = null;
 
             if (deviceRecord != null && deviceRecord.modulRecords != null)
             {
                 ModelRecord tempModelRecord = deviceRecord.modulRecords.Find(x => x.id == modulRecordsID);
 
                 if (tempModelRecord != null && tempModelRecord.dataPointRecord != null)
-                    result = tempModelRecord.dataPointRecord.Find(p => p.id == dataPointRecordID).DescriptionDataPointRecord;
+                {
+                    var tempDescriptionDataPointRecord = tempModelRecord.dataPointRecord.Find(p => p.id == dataPointRecordID);
+
+                    if (tempDescriptionDataPointRecord != null)
+                        result = tempDescriptionDataPointRecord.DescriptionDataPointRecord;
+                }
             }
 
             return result;

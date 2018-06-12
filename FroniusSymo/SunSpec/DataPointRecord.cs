@@ -12,11 +12,6 @@ namespace FroniusSymo.SunSpec
 
         public DataPointRecord ()
         {
-          //  id = "444";
-            //DescriptionDataPointRecord = "test22";
-
-
         }
-
     }
 }

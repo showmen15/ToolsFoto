@@ -13,7 +13,6 @@ namespace FroniusSymo.SunSpec
 
         public ModelRecord()
         {
-           // dataPointRecord = new List<DataPointRecord>();
         }
     }
 }
