@@ -38,20 +38,31 @@ namespace FroniusSymo.SunSpec
         }
 
         [XmlIgnore]
-        public string W
+        public double W
         {
             get
             {
-                return getDescriptionDataPointRecord("113", "W");
+                return double.Parse(getDescriptionDataPointRecord("113", "W").Replace(".",","));
             }
         }
 
         [XmlIgnore]
-        public string Wh
+        public double Wh
         {
             get
             {
-                return getDescriptionDataPointRecord("113", "Wh");
+                return double.Parse(getDescriptionDataPointRecord("113", "Wh").Replace(".", ","));
+            }
+        }
+
+        public bool ExistWhAndW
+        {
+            get
+            {
+                string sTempW = getDescriptionDataPointRecord("113", "W");
+                string sTempWh = getDescriptionDataPointRecord("113", "Wh");
+
+                return (!string.IsNullOrWhiteSpace(sTempW) && !string.IsNullOrWhiteSpace(sTempWh));
             }
         }
 

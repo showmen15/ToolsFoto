@@ -23,7 +23,7 @@ namespace FroniusSymo
         public IEnumerable<SunSpecData> GetSunSpecData(string sDirectoryPath)
         {
             List<SunSpecData> result = new List<SunSpecData>();
-            string[] inputs = Directory.GetFiles(sDirectoryPath, "SunSpecData*");
+            string[] inputs = Directory.GetFiles(sDirectoryPath, "SunSpec*");
 
             foreach (var file in inputs)
             {
@@ -35,7 +35,8 @@ namespace FroniusSymo
                     tempSunSpecDate = (SunSpecData)serializer.Deserialize(rdr);
                 }
 
-                result.Add(tempSunSpecDate);
+                if (tempSunSpecDate.ExistWhAndW)
+                    result.Add(tempSunSpecDate);
             }
 
             return result;
@@ -44,7 +45,7 @@ namespace FroniusSymo
         public IEnumerable<Production2.Production2> GetProduction2(string sDirectoryPath)
         {
             List<Production2.Production2> result = new List<Production2.Production2>();
-            string[] inputs = Directory.GetFiles(sDirectoryPath, "SunSpec*");
+            string[] inputs = Directory.GetFiles(sDirectoryPath, "SolarAPI_CurrentData_PowerFlow*");
 
             foreach (var file in inputs)
             {
@@ -60,7 +61,7 @@ namespace FroniusSymo
         public IEnumerable<Production.Production> GetProduction(string sDirectoryPath)
         {
             List<Production.Production> result = new List<Production.Production>();
-            string[] inputs = Directory.GetFiles(sDirectoryPath, "SunSpec*");
+            string[] inputs = Directory.GetFiles(sDirectoryPath, "SolarApiCurrentInverter*");
 
             foreach (var file in inputs)
             {

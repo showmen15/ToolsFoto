@@ -30,8 +30,10 @@ namespace LogFoto
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string sDirectoryPath = @"D:\Falownik\Inputs\";
+            //string sDirectoryPath = @"D:\Falownik\Inputs\";
+            string sDirectoryPath = @"G:\Fotowoltaika\";
 
+            
 
             using (ProviderMsAccess prov = new ProviderMsAccess(@"C:\Users\Szymon\Documents\baza.accdb"))
             {
@@ -45,7 +47,8 @@ namespace LogFoto
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string sDirectoryPath = @"D:\Falownik\Inputs\";
+            //string sDirectoryPath = @"D:\Falownik\Inputs\";
+            string sDirectoryPath = @"G:\Fotowoltaika\";
 
             using (ProviderMsAccess prov = new ProviderMsAccess(@"C:\Users\Szymon\Documents\baza.accdb"))
             {
@@ -59,7 +62,8 @@ namespace LogFoto
 
         private void button3_Click(object sender, EventArgs e)
         {
-            string sDirectoryPath = @"D:\Falownik\Inputs\";
+            //string sDirectoryPath = @"D:\Falownik\Inputs\";
+            string sDirectoryPath = @"G:\Fotowoltaika\";
 
             using (ProviderMsAccess prov = new ProviderMsAccess(@"C:\Users\Szymon\Documents\baza.accdb"))
             {
