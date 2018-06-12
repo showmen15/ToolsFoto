@@ -52,6 +52,10 @@
     <Compile Include="Production\Production.cs" />
     <Compile Include="Production2\Production2.cs" />
     <Compile Include="Production2\Site.cs" />
+    <Compile Include="SunSpec\Klasa.cs" />
+    <Compile Include="SunSpec\DataPointRecord.cs" />
+    <Compile Include="SunSpec\Module.cs" />
+    <Compile Include="SunSpec\Properties.cs" />
     <Compile Include="SunSpec\SpecData.cs" />
     <Compile Include="SunSpec\SunSpecData.cs" />
     <Compile Include="Production\Value.cs" />

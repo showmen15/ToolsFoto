@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace FroniusSymo.SunSpec
 {
-    public class SpecData
+    public class DeviceRecord
     {
         [XmlAttribute("man")]
         public string man { get; set; }
@@ -32,5 +32,13 @@ namespace FroniusSymo.SunSpec
                     return null;
             }
         }
-   }
+
+        [XmlElement("m")]
+        public List<ModelRecord> modulRecords { get; set; }
+
+        public DeviceRecord()
+        {
+            modulRecords = new List<ModelRecord>();
+        }
+    }
 }

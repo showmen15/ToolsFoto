@@ -1,4 +1,5 @@
 ﻿using FroniusSymo;
+using FroniusSymo.SunSpec;
 using ProviderMsAccessDB;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
+using System;
+using System.Data;
+using System.Data.OleDb;
+using System.Xml;
+using System.Xml.Linq;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace LogFoto
 {
@@ -32,6 +41,41 @@ namespace LogFoto
 
                 prov.InsertProduction2(temp);
             }            
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            SunSpecData sun = new SunSpecData();
+            sun.v = "888";
+            sun.deviceRecord.man = "test";
+            sun.deviceRecord.mod = "r343";
+            sun.deviceRecord.sn = "12456";
+            sun.deviceRecord.t = "2018-06-08T10:25:50+02:00";
+
+
+            //sun.specData.moduls.Add(new Module());
+            //sun.specData.moduls[0].ID = "1";
+
+            //sun.specData.moduls.Add(new Module());
+           // sun.specData.moduls[1].ID = "113";
+
+            /* sun.specData.module1.ID = "1";
+             sun.specData.module1.module.Add(new FroniusSymo.SunSpec.Properties { ID = "Mn", Value = "Fronius" });
+             sun.specData.module1.module.Add(new FroniusSymo.SunSpec.Properties() { ID = "Md", Value = "Fronius Symo 3.7-3-M" });
+
+             sun.specData.module113.ID = "113";
+             sun.specData.module113.module.Add(new FroniusSymo.SunSpec.Properties { ID = "W", Value = "429.000000" });
+             sun.specData.module113.module.Add(new FroniusSymo.SunSpec.Properties() { ID = "Md", Value = "Fronius Symo 3.7-3-M" });
+             */
+
+            // sun.specData.module113.Add(new FroniusSymo.SunSpec.Properties() { ID = "W", Value = "429.000000" });
+            // sun.specData.module113.Add(new FroniusSymo.SunSpec.Properties() { ID = "Wh", Value = "1755508.000000" });
+
+            using (StreamWriter myWriter = new StreamWriter(".\\test.xml", false))
+            {
+                XmlSerializer mySerializer = new XmlSerializer(typeof(SunSpecData));
+                mySerializer.Serialize(myWriter, sun);
+            }
         }
     }
 }
