@@ -45,47 +45,30 @@ namespace LogFoto
 
         private void button2_Click(object sender, EventArgs e)
         {
-            SunSpecData sun;// = new SunSpecData();
+            string sDirectoryPath = @"D:\Falownik\Inputs\";
 
-            using (StreamReader myReader = new StreamReader(@"C:\Users\szsz\Dropbox\Solar\WindowsFormsApplication3\sol\SunSpec20180611071240.txt", false))
+            using (ProviderMsAccess prov = new ProviderMsAccess(@"C:\Users\Szymon\Documents\baza.accdb"))
             {
-                XmlSerializer mySerializer = new XmlSerializer(typeof(SunSpecData));
-                sun = (SunSpecData) mySerializer.Deserialize(myReader);
+                FroniusSymoLog log = new FroniusSymoLog();
+
+                var temp = log.GetSunSpecData(sDirectoryPath);
+
+                prov.InsertSunSpecData(temp);
             }
+        }
 
-            string ss = sun.Wh;
+        private void button3_Click(object sender, EventArgs e)
+        {
+            string sDirectoryPath = @"D:\Falownik\Inputs\";
 
-            /* SunSpecData sun = new SunSpecData();
-            sun.v = "888";
-            sun.deviceRecord.man = "test";
-            sun.deviceRecord.mod = "r343";
-            sun.deviceRecord.sn = "12456";
-            sun.deviceRecord.t = "2018-06-08T10:25:50+02:00";
-            */
+            using (ProviderMsAccess prov = new ProviderMsAccess(@"C:\Users\Szymon\Documents\baza.accdb"))
+            {
+                FroniusSymoLog log = new FroniusSymoLog();
 
-            //sun.specData.moduls.Add(new Module());
-            //sun.specData.moduls[0].ID = "1";
+                var temp = log.GetProduction(sDirectoryPath);
 
-            //sun.specData.moduls.Add(new Module());
-            // sun.specData.moduls[1].ID = "113";
-
-            /* sun.specData.module1.ID = "1";
-             sun.specData.module1.module.Add(new FroniusSymo.SunSpec.Properties { ID = "Mn", Value = "Fronius" });
-             sun.specData.module1.module.Add(new FroniusSymo.SunSpec.Properties() { ID = "Md", Value = "Fronius Symo 3.7-3-M" });
-
-             sun.specData.module113.ID = "113";
-             sun.specData.module113.module.Add(new FroniusSymo.SunSpec.Properties { ID = "W", Value = "429.000000" });
-             sun.specData.module113.module.Add(new FroniusSymo.SunSpec.Properties() { ID = "Md", Value = "Fronius Symo 3.7-3-M" });
-             */
-
-            // sun.specData.module113.Add(new FroniusSymo.SunSpec.Properties() { ID = "W", Value = "429.000000" });
-            // sun.specData.module113.Add(new FroniusSymo.SunSpec.Properties() { ID = "Wh", Value = "1755508.000000" });
-
-            /*    using (StreamWriter myWriter = new StreamWriter(".\\test.xml", false))
-                {
-                    XmlSerializer mySerializer = new XmlSerializer(typeof(SunSpecData));
-                    mySerializer.Serialize(myWriter, sun);
-                }*/
+                prov.InsertProduction(temp);
+            }
         }
     }
 }
