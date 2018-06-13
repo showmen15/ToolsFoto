@@ -87,6 +87,10 @@
       <Project>{5af3f353-dd08-4458-941f-6e0c3e213de8}</Project>
       <Name>ProviderMsAccessDB</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Tauron\Tauron.csproj">
+      <Project>{b6df9f96-b58f-4ace-a78c-a7b1b8815709}</Project>
+      <Name>Tauron</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
