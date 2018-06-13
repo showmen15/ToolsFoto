@@ -102,19 +102,6 @@ namespace ProviderMsAccessDB
         {
             using (Database db = new Database(connection))
             {
-                //If NOT EXISTS(SELECT Null FROM TableName WHERE Field1 = 'Value1' AND Field2 = 'Value2')
-//INSERT INTO TableName(Field1, Field2) VALUES('Value1', 'Value2')
-
-
-                     db.cmd.CommandText = @"
-
-If NOT EXISTS(SELECT 1 FROM TauronLog FROM InsertTimeStamp = @InsertTimeStamp)
-BEGIN
-INSERT INTO TauronLog(InsertTimeStamp, InsertDate, PowerConsumption,PowerProduction,CurrentTemperature) VALUES(@InsertTimeStamp, @InsertDate, @PowerConsumption, @PowerProduction, @CurrentTemperature)
-END";
-
-                // db.cmd.CommandText = "INSERT INTO Production(InsertTimeStamp, InsertDate, PowerConsumption,PowerProduction,CurrentTemperature) VALUES(@InsertTimeStamp, @InsertDate, @PowerConsumption, @PowerProduction, @CurrentTemperature)";
-
                 db.cmd.Parameters.Add("@InsertTimeStamp", OleDbType.Date);
                 db.cmd.Parameters.Add("@InsertDate", OleDbType.Date);
                 db.cmd.Parameters.AddWithValue("@PowerConsumption", OleDbType.Double);
@@ -129,7 +116,14 @@ END";
                     db.cmd.Parameters["@PowerProduction"].Value = item.PowerProduction;
                     db.cmd.Parameters["@CurrentTemperature"].Value = item.CurrentTemperature;
 
-                    db.cmd.ExecuteNonQuery();
+                    db.cmd.CommandText = @"SELECT 1 FROM TauronLog WHERE InsertTimeStamp = @InsertTimeStamp";
+                    int result = db.cmd.ExecuteScalar().GetValue<int>(0);
+
+                    if (result == 0)
+                    {
+                        db.cmd.CommandText = @"INSERT INTO TauronLog(InsertTimeStamp, InsertDate, PowerConsumption,PowerProduction,CurrentTemperature) VALUES(@InsertTimeStamp, @InsertDate, @PowerConsumption, @PowerProduction, @CurrentTemperature)";
+                        db.cmd.ExecuteNonQuery();
+                    }
                 }
             }
         }

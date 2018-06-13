@@ -32,8 +32,8 @@ namespace LogFoto
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //string sDirectoryPath = @"D:\Falownik\Inputs\";
-            string sDirectoryPath = @"G:\Fotowoltaika\";
+            string sDirectoryPath = @"D:\Falownik\Inputs\";
+            //string sDirectoryPath = @"G:\Fotowoltaika\";
 
             
 
@@ -49,8 +49,8 @@ namespace LogFoto
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //string sDirectoryPath = @"D:\Falownik\Inputs\";
-            string sDirectoryPath = @"G:\Fotowoltaika\";
+            string sDirectoryPath = @"D:\Falownik\Inputs\";
+            //string sDirectoryPath = @"G:\Fotowoltaika\";
 
             using (ProviderMsAccess prov = new ProviderMsAccess(@"C:\Users\Szymon\Documents\baza.accdb"))
             {
@@ -64,8 +64,8 @@ namespace LogFoto
 
         private void button3_Click(object sender, EventArgs e)
         {
-            //string sDirectoryPath = @"D:\Falownik\Inputs\";
-            string sDirectoryPath = @"G:\Fotowoltaika\";
+            string sDirectoryPath = @"D:\Falownik\Inputs\";
+            //string sDirectoryPath = @"G:\Fotowoltaika\";
 
             using (ProviderMsAccess prov = new ProviderMsAccess(@"C:\Users\Szymon\Documents\baza.accdb"))
             {
@@ -180,11 +180,11 @@ namespace LogFoto
 
         private void button7_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog open = new OpenFileDialog())
+           // using (OpenFileDialog open = new OpenFileDialog())
             {
-                if(open.ShowDialog(this) == DialogResult.OK)
+             //   if(open.ShowDialog(this) == DialogResult.OK)
                 {
-                    string sTauronLogFilePath = open.FileName; //@"C:\Users\szsz\Dropbox\Tauron\Dane.xls"
+                    string sTauronLogFilePath = @"D:\Falownik\Tauron\Dane.xls"; //open.FileName; //@"D:\Falownik\Tauron\Dane.xls"
 
                     using (ProviderMsAccess prov = new ProviderMsAccess(@"C:\Users\Szymon\Documents\baza.accdb"))
                     {
