@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FroniusSymo.SunSpec;
 using FroniusSymo.Production;
+using Tauron;
 
 namespace ProviderMsAccessDB
 {
@@ -90,6 +91,43 @@ namespace ProviderMsAccessDB
                     db.cmd.Parameters["@DAY_ENERGY"].Value = item.DayEnergy;
                     db.cmd.Parameters["@YEAR_ENERGY"].Value = item.YearEnergy;
                     db.cmd.Parameters["@TOTAL_ENERGY"].Value = item.TotalEnergy;
+
+                    db.cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+        public void InsertTauronLog(IEnumerable<TauronLogItem> data)
+        {
+            using (Database db = new Database(connection))
+            {
+                //If NOT EXISTS(SELECT Null FROM TableName WHERE Field1 = 'Value1' AND Field2 = 'Value2')
+//INSERT INTO TableName(Field1, Field2) VALUES('Value1', 'Value2')
+
+
+                     db.cmd.CommandText = @"
+
+If NOT EXISTS(SELECT 1 FROM TauronLog FROM InsertTimeStamp = @InsertTimeStamp)
+BEGIN
+INSERT INTO TauronLog(InsertTimeStamp, InsertDate, PowerConsumption,PowerProduction,CurrentTemperature) VALUES(@InsertTimeStamp, @InsertDate, @PowerConsumption, @PowerProduction, @CurrentTemperature)
+END";
+
+                // db.cmd.CommandText = "INSERT INTO Production(InsertTimeStamp, InsertDate, PowerConsumption,PowerProduction,CurrentTemperature) VALUES(@InsertTimeStamp, @InsertDate, @PowerConsumption, @PowerProduction, @CurrentTemperature)";
+
+                db.cmd.Parameters.Add("@InsertTimeStamp", OleDbType.Date);
+                db.cmd.Parameters.Add("@InsertDate", OleDbType.Date);
+                db.cmd.Parameters.AddWithValue("@PowerConsumption", OleDbType.Double);
+                db.cmd.Parameters.AddWithValue("@PowerProduction", OleDbType.Double);
+                db.cmd.Parameters.AddWithValue("@CurrentTemperature", OleDbType.Double);
+
+                foreach (var item in data)
+                {
+                    db.cmd.Parameters["@InsertTimeStamp"].Value = item.InsertTimeStamp;
+                    db.cmd.Parameters["@InsertDate"].Value = item.InsertTimeStamp.Date;
+                    db.cmd.Parameters["@PowerConsumption"].Value = item.PowerConsumption;
+                    db.cmd.Parameters["@PowerProduction"].Value = item.PowerProduction;
+                    db.cmd.Parameters["@CurrentTemperature"].Value = item.CurrentTemperature;
 
                     db.cmd.ExecuteNonQuery();
                 }

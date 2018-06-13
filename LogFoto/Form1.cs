@@ -177,5 +177,24 @@ namespace LogFoto
             var lista = log.GetTauronLogData(@"C:\Users\szsz\Dropbox\Tauron\Dane.xls");
 
         }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog open = new OpenFileDialog())
+            {
+                if(open.ShowDialog(this) == DialogResult.OK)
+                {
+                    string sTauronLogFilePath = open.FileName; //@"C:\Users\szsz\Dropbox\Tauron\Dane.xls"
+
+                    using (ProviderMsAccess prov = new ProviderMsAccess(@"C:\Users\Szymon\Documents\baza.accdb"))
+                    {
+                        Tauron.TauronLog log = new Tauron.TauronLog();
+                        var lista = log.GetTauronLogData(sTauronLogFilePath);
+
+                        prov.InsertTauronLog(lista);
+                    }
+                }
+            }
+        }
     }
 }
