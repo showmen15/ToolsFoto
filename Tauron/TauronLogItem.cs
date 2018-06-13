@@ -26,6 +26,7 @@ namespace Tauron
 
         public TauronLogItem()
         {
+
         }
     }
 }
