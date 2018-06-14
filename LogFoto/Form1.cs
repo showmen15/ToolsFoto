@@ -196,5 +196,12 @@ namespace LogFoto
                 }
             }
         }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            FroniusSymoLog log = new FroniusSymoLog();
+
+            log.DeserializeJosn();
+        }
     }
 }

@@ -11,6 +11,7 @@ using FroniusSymo.SunSpec;
 using System.IO;
 using Newtonsoft.Json;
 using System.Xml.Serialization;
+using FroniusSymo.FroniusSolar;
 
 namespace FroniusSymo
 {
@@ -72,6 +73,24 @@ namespace FroniusSymo
             }
 
             return result;
+        }
+
+
+        public void DeserializeJosn()
+        {
+             string file = @"C:\Users\szsz\Dropbox\Solar\Nowy dokument tekstowy.json";
+
+             string input = File.ReadAllText(file);
+
+             FroniusSolarResponses resulet = JsonConvert.DeserializeObject<FroniusSolarResponses>(input);
+
+
+
+
+          //  CHANNEL_NAME test = new CHANNEL_NAME();
+
+           string outt = JsonConvert.SerializeObject(resulet, Newtonsoft.Json.Formatting.Indented);
+
         }
     }
 }

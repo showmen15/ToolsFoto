@@ -54,6 +54,7 @@
     <Compile Include="FroniusSolar\Head.cs" />
     <Compile Include="FroniusSolar\RequestArguments.cs" />
     <Compile Include="FroniusSolar\Status.cs" />
+    <Compile Include="FroniusSolar\Values.cs" />
     <Compile Include="FroniusSymoLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Production\Body.cs" />
