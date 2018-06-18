@@ -49,9 +49,12 @@
     <Compile Include="FroniusSolar\Data.cs" />
     <Compile Include="FroniusSolar\DataValues.cs" />
     <Compile Include="FroniusSolar\DEVICE_ID.cs" />
+    <Compile Include="FroniusSolar\DicDuplicate.cs" />
     <Compile Include="FroniusSolar\ErrorDetail.cs" />
     <Compile Include="FroniusSolar\FroniusSolarResponses.cs" />
     <Compile Include="FroniusSolar\Head.cs" />
+    <Compile Include="FroniusSolar\MyJsonDictionary.cs" />
+    <Compile Include="FroniusSolar\MyType.cs" />
     <Compile Include="FroniusSolar\RequestArguments.cs" />
     <Compile Include="FroniusSolar\Status.cs" />
     <Compile Include="FroniusSolar\Values.cs" />

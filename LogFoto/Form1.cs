@@ -198,10 +198,39 @@ namespace LogFoto
         }
 
         private void button8_Click(object sender, EventArgs e)
-        {
+        {         
+                
+
+
+
+
             FroniusSymoLog log = new FroniusSymoLog();
 
             log.DeserializeJosn();
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            FroniusSymoLog log = new FroniusSymoLog();
+
+            log.DailySumProduction(DateTime.Now);
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            FroniusSymoLog log = new FroniusSymoLog();
+            DateTime startDate = new DateTime(2018, 02, 22);
+
+            for (int i = 1; i < 20; i++)
+            {
+                DateTime dateSelected = startDate.AddDays(-i);
+                double dailyProduction = log.DailySumProduction(dateSelected);
+
+                using (ProviderMsAccess prov = new ProviderMsAccess(@"C:\Users\Szymon\Documents\baza.accdb"))
+                {
+                    prov.DailySumProduction(dateSelected, dailyProduction);
+                }
+            }
         }
     }
 }

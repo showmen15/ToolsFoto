@@ -26,11 +26,19 @@ namespace FroniusSymo.FroniusSolar
         //public List<List<KeyValuePair<string, double>>> values { get; set; }
 
         [JsonProperty("Values")]
-        //Dictionary<string, double> values { get; set; }
-        List<string> values { get; set; }
+        public object values { get; set; }
+
+        //MyJsonDictionary<string, double> values { get; set; }
+
+        //DuplicateDictionary<string,double> values { get; set; }
+
+        //MyJsonDictionary<string, double> values { get; set; }
+        // List<string> values { get; set; }
 
         public EnergyReal_WAC_Sum_Produced()
         {
+          //  values.
+
            /* Unit = "W";
            /* offsetInSecond = new Dictionary<string, double>();
             offsetInSecond.Add("22", 0.22);

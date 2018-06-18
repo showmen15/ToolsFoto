@@ -11,7 +11,7 @@ using Tauron;
 
 namespace ProviderMsAccessDB
 {
-    public class ProviderMsAccess: IDisposable
+    public class ProviderMsAccess : IDisposable
     {
         private ConnectionString connection;
 
@@ -20,7 +20,7 @@ namespace ProviderMsAccessDB
             connection = new ConnectionString(dbLocation);
         }
 
-        public void Dispose() {}
+        public void Dispose() { }
 
         public void InsertProduction2(IEnumerable<Production2> data)
         {
@@ -30,14 +30,14 @@ namespace ProviderMsAccessDB
 
                 db.cmd.Parameters.Add("@InsertTimeStamp", OleDbType.Date);
                 db.cmd.Parameters.Add("@InsertDate", OleDbType.Date);
-                db.cmd.Parameters.AddWithValue("@E_Day", OleDbType.Double);
-                db.cmd.Parameters.AddWithValue("@E_Year", OleDbType.Double);
-                db.cmd.Parameters.AddWithValue("@E_Total", OleDbType.Double);
+                db.cmd.Parameters.Add("@E_Day", OleDbType.Double);
+                db.cmd.Parameters.Add("@E_Year", OleDbType.Double);
+                db.cmd.Parameters.Add("@E_Total", OleDbType.Double);
 
                 foreach (var item in data)
                 {
                     db.cmd.Parameters["@InsertTimeStamp"].Value = item.timestamp.Value;
-                    db.cmd.Parameters["@InsertDate"].Value = item.timestamp.Value.Date;                   
+                    db.cmd.Parameters["@InsertDate"].Value = item.timestamp.Value.Date;
                     db.cmd.Parameters["@E_Day"].Value = item.E_Day;
                     db.cmd.Parameters["@E_Year"].Value = item.E_Year;
                     db.cmd.Parameters["@E_Total"].Value = item.E_Total;
@@ -48,22 +48,22 @@ namespace ProviderMsAccessDB
         }
 
         public void InsertSunSpecData(IEnumerable<SunSpecData> data)
-        { 
+        {
             using (Database db = new Database(connection))
             {
                 db.cmd.CommandText = "INSERT INTO SunSpec(InsertTimeStamp,InsertDate,Wats,Wh) VALUES(@InsertTimeStamp, @InsertDate, @Wats, @Wh)";
 
                 db.cmd.Parameters.Add("@InsertTimeStamp", OleDbType.Date);
                 db.cmd.Parameters.Add("@InsertDate", OleDbType.Date);
-                db.cmd.Parameters.AddWithValue("@Wats", OleDbType.Double);
-                db.cmd.Parameters.AddWithValue("@Wh", OleDbType.Double);
+                db.cmd.Parameters.Add("@Wats", OleDbType.Double);
+                db.cmd.Parameters.Add("@Wh", OleDbType.Double);
 
                 foreach (var item in data)
                 {
                     db.cmd.Parameters["@InsertTimeStamp"].Value = item.Timestamp.Value;
                     db.cmd.Parameters["@InsertDate"].Value = item.Timestamp.Value.Date;
                     db.cmd.Parameters["@Wats"].Value = item.W;
-                    db.cmd.Parameters["@Wh"].Value = item.Wh;                    
+                    db.cmd.Parameters["@Wh"].Value = item.Wh;
 
                     db.cmd.ExecuteNonQuery();
                 }
@@ -78,10 +78,10 @@ namespace ProviderMsAccessDB
 
                 db.cmd.Parameters.Add("@InsertTimeStamp", OleDbType.Date);
                 db.cmd.Parameters.Add("@InsertDate", OleDbType.Date);
-                db.cmd.Parameters.AddWithValue("@PAC", OleDbType.Integer);
-                db.cmd.Parameters.AddWithValue("@DAY_ENERGY", OleDbType.Integer);
-                db.cmd.Parameters.AddWithValue("@YEAR_ENERGY", OleDbType.Integer);
-                db.cmd.Parameters.AddWithValue("@TOTAL_ENERGY", OleDbType.Integer);            
+                db.cmd.Parameters.Add("@PAC", OleDbType.Integer);
+                db.cmd.Parameters.Add("@DAY_ENERGY", OleDbType.Integer);
+                db.cmd.Parameters.Add("@YEAR_ENERGY", OleDbType.Integer);
+                db.cmd.Parameters.Add("@TOTAL_ENERGY", OleDbType.Integer);
 
                 foreach (var item in data)
                 {
@@ -104,9 +104,9 @@ namespace ProviderMsAccessDB
             {
                 db.cmd.Parameters.Add("@InsertTimeStamp", OleDbType.Date);
                 db.cmd.Parameters.Add("@InsertDate", OleDbType.Date);
-                db.cmd.Parameters.AddWithValue("@PowerConsumption", OleDbType.Double);
-                db.cmd.Parameters.AddWithValue("@PowerProduction", OleDbType.Double);
-                db.cmd.Parameters.AddWithValue("@CurrentTemperature", OleDbType.Double);
+                db.cmd.Parameters.Add("@PowerConsumption", OleDbType.Double);
+                db.cmd.Parameters.Add("@PowerProduction", OleDbType.Double);
+                db.cmd.Parameters.Add("@CurrentTemperature", OleDbType.Double);
 
                 foreach (var item in data)
                 {
@@ -125,6 +125,21 @@ namespace ProviderMsAccessDB
                         db.cmd.ExecuteNonQuery();
                     }
                 }
+            }
+        }
+
+        public void DailySumProduction(DateTime dateSelected, double dailyProduction)
+        {
+            using (Database db = new Database(connection))
+            {
+                db.cmd.Parameters.Add("@InsertDate", OleDbType.Date);
+                db.cmd.Parameters.Add("@Wh", OleDbType.Double);
+
+                db.cmd.Parameters["@InsertDate"].Value = dateSelected.Date;
+                db.cmd.Parameters["@Wh"].Value = dailyProduction;
+
+                db.cmd.CommandText = @"INSERT INTO FroniusProduction(InsertDate, Wh) VALUES(@InsertDate, @Wh)";
+                db.cmd.ExecuteNonQuery();
             }
         }
     }
