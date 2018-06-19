@@ -142,5 +142,18 @@ namespace ProviderMsAccessDB
                 db.cmd.ExecuteNonQuery();
             }
         }
+
+        public DateTime GetFroniusProductionBeginDate()
+        {
+            DateTime result = DateTime.Now;
+
+            using (Database db = new Database(connection))
+            {
+                db.cmd.CommandText = @"SELECT MAX(InsertDate) FroniusProduction";
+                result = db.cmd.ExecuteScalar().GetValue<DateTime>(DateTime.Now);
+            }
+
+            return result;
+        }
     }
 }
