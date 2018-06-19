@@ -149,7 +149,7 @@ namespace ProviderMsAccessDB
 
             using (Database db = new Database(connection))
             {
-                db.cmd.CommandText = @"SELECT MAX(InsertDate) FroniusProduction";
+                db.cmd.CommandText = @"SELECT MAX(InsertDate) FROM FroniusProduction";
                 result = db.cmd.ExecuteScalar().GetValue<DateTime>(DateTime.Now);
             }
 

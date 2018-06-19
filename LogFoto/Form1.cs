@@ -102,7 +102,7 @@ namespace LogFoto
 
                 DateTime beginDate = prov.GetFroniusProductionBeginDate();
 
-                for (; beginDate < DateTime.Now; beginDate = beginDate.AddDays(1))
+                for (beginDate = beginDate.AddDays(1); beginDate < DateTime.Now.Date; beginDate = beginDate.AddDays(1))
                 {
                     double dailyProduction = log.DailySumProduction(beginDate);
                     prov.DailySumProduction(beginDate, dailyProduction);
