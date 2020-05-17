@@ -115,7 +115,7 @@ namespace FroniusSymo
         private string getResponseFromProduction(DateTime date)
         {
             string result = string.Empty;
-            string sIP = "192.168.2.100";
+            string sIP = "192.168.2.148"; //getIPFromDNS("48"); ;
             string sDate = date.ToString("dd.MM.yyyy");
 
             string url = string.Format("http://{0}/solar_api/v1/GetArchiveData.cgi?Scope=Device&DeviceClass=Inverter&DeviceId=1&StartDate={1}&EndDate={1}&Channel=EnergyReal_WAC_Sum_Produced&HumanReadable=True", sIP, sDate);
@@ -133,6 +133,17 @@ namespace FroniusSymo
             }
 
             return result;
+        }
+
+        private string getIPFromDNS(string hostname)
+        {
+            string sResult = "";
+
+            IPHostEntry host;
+
+            host = Dns.GetHostEntry(hostname);
+
+            return sResult;
         }
     }
 }

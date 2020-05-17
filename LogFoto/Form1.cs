@@ -92,6 +92,8 @@ namespace LogFoto
                     }
                 }
             }
+
+            MessageBox.Show(this, "Import zakończone!!", "Import Tauron", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void button10_Click(object sender, EventArgs e)
@@ -108,6 +110,8 @@ namespace LogFoto
                     prov.DailySumProduction(beginDate, dailyProduction);
                 }
             }
+
+            MessageBox.Show(this, "Pobranie zakończone!!", "Komunikacja falowanik", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

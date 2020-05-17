@@ -76,8 +76,9 @@ namespace Tauron
             }
             else
             {
-                CultureInfo provider = CultureInfo.GetCultureInfo("en-US");
-                result = DateTime.ParseExact(input, "yyyy-MM-dd h", provider);
+                //CultureInfo provider = CultureInfo.GetCultureInfo("en-US");
+                //result = DateTime.ParseExact(input, "yyyy-MM-dd hh:mm:ss", provider);
+                result = DateTime.Parse(input); //, "yyyy-MM-dd hh:mm:ss");
             }
 
             return result;
