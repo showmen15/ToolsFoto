@@ -28,5 +28,17 @@ namespace Tauron
         {
 
         }
+
+        public static TauronLogItem FromCsv(string csvLine)
+        {
+            string[] values = csvLine.Split(';');
+            TauronLogItem tauronLogItemValues = new TauronLogItem();
+            tauronLogItemValues.InsertTimeStamp = Convert.ToDateTime(values[0]);
+            tauronLogItemValues.PowerConsumption = Convert.ToDouble(values[1]);
+            tauronLogItemValues.PowerProduction = Convert.ToDouble(values[2]);
+
+            return tauronLogItemValues;
+        }
+
     }
 }

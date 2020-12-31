@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.OleDb;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -58,6 +59,14 @@ namespace Tauron
                 }
             }
 
+            return result;
+        }
+
+
+        public IEnumerable<TauronLogItem> GetTauronLogDataCSV(string sFileName)
+        {
+            List<TauronLogItem> result;
+            result = File.ReadAllLines(sFileName).Skip(1).Select(v => TauronLogItem.FromCsv(v)).ToList();
             return result;
         }
 

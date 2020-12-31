@@ -89,7 +89,8 @@ namespace LogFoto
                     using (ProviderMsAccess prov = new ProviderMsAccess(@"C:\Users\Szymon\Documents\baza.accdb"))
                     {
                         Tauron.TauronLog log = new Tauron.TauronLog();
-                        var lista = log.GetTauronLogData(sTauronLogFilePath);
+                        //var lista = log.GetTauronLogData(sTauronLogFilePath);
+                        var lista = log.GetTauronLogDataCSV(sTauronLogFilePath);
 
                         prov.InsertTauronLog(lista);
                     }
@@ -101,21 +102,38 @@ namespace LogFoto
 
         private void button10_Click(object sender, EventArgs e)
         {
+            backgroundWorkerdoGetDailySumProduction.RunWorkerAsync();
+       
+        }
+
+
+        private void doGetDailySumProduction()
+        {
             using (ProviderMsAccess prov = new ProviderMsAccess(@"C:\Users\Szymon\Documents\baza.accdb"))
             {
                 FroniusSymoLog log = new FroniusSymoLog();
 
                 DateTime beginDate = prov.GetFroniusProductionBeginDate();
 
+                progressBar1.Invoke((MethodInvoker) delegate
+                {
+                    progressBar1.Maximum = (DateTime.Now.Date - beginDate.AddDays(1)).Days;
+
+                });
+
+
                 for (beginDate = beginDate.AddDays(1); beginDate < DateTime.Now.Date; beginDate = beginDate.AddDays(1))
                 {
                     double dailyProduction = log.DailySumProduction(beginDate);
                     prov.DailySumProduction(beginDate, dailyProduction);
+                    progressBar1.Invoke((MethodInvoker)delegate
+                    {
+                        progressBar1.Increment(1);
+                    });                    
                 }
             }
-
-            MessageBox.Show(this, "Pobranie zakończone!!", "Komunikacja falowanik", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
 
         private void button4_Click(object sender, EventArgs e)
         {
@@ -200,5 +218,14 @@ namespace LogFoto
             }
         }
 
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {           
+            doGetDailySumProduction();
+        }
+
+        private void backgroundWorkerdoGetDailySumProduction_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            MessageBox.Show(this, "Pobranie zakończone!!", "Komunikacja falowanik", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }
