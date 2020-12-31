@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FroniusSolar_json2\Inverter.cs" />
     <Compile Include="FroniusSolar_json\Body.cs" />
     <Compile Include="FroniusSolar_json\CHANNEL_NAME.cs" />
     <Compile Include="FroniusSolar_json\Data.cs" />
